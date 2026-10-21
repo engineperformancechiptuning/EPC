@@ -35,7 +35,7 @@ app.post('/api/upload',(req,res)=>upload.single('file')(req,res,err=>{
  const id=crypto.randomUUID();uploads.set(id,{created:Date.now(),fields,file:{buffer:f.buffer,name:path.basename(f.originalname).slice(0,140),type:'application/octet-stream'},orderId:null});
  res.json({uploadId:id});
 }));
-async function sendOrderEmail(orderId,o){
+async function sendOrderEmail(orderId){
  const u=uploads.get(o.uploadId);if(!u)throw Error('Fichier temporaire introuvable');
  const host=process.env.SMTP_HOST,port=Number(process.env.SMTP_PORT||465),user=process.env.SMTP_USER,pass=process.env.SMTP_PASSWORD;
  if(!host||!user||!pass)throw Error('SMTP non configuré');
