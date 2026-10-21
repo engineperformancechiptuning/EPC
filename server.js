@@ -49,10 +49,68 @@ async function sendOrderEmail(orderId,o){
 
 app.get('/api/config',(req,res)=>res.json({clientId:process.env.PAYPAL_CLIENT_ID||'',mode}));
 app.post('/api/orders',async(req,res)=>{try{const c=cart(req.body.items);const u=uploads.get(req.body.uploadId);if(!u||u.orderId||Date.now()-u.created>60*60*1000) return res.status(400).json({error:'Fichier absent ou expiré : recommencez le téléversement.'});const order=await paypal('/v2/checkout/orders','POST',{intent:'CAPTURE',purchase_units:[{description:'Prestations ECU EPC',amount:{currency_code:'EUR',value:(c.cents/100).toFixed(2)}}]});if(!order.id)throw Error('Commande PayPal sans identifiant');orders.set(order.id,{items:c.items.map(x=>x.id),cents:c.cents,status:'CREATED',uploadId:req.body.uploadId,emailed:false});u.orderId=order.id;res.json({id:order.id});}catch(e){console.error(e.message);res.status(400).json({error:'Impossible de créer la commande. Vérifiez le panier et la configuration PayPal.'});}});
-app.post('/api/orders/:id/capture',async(req,res)=>{try{const o=orders.get(req.params.id);if(!o) return res.status(404).json({error:'Commande inconnue'});if(o.status==='COMPLETED'){if(!o.emailed){try{await sendOrderEmail(req.params.id,o)}catch(e){console.error('EMAIL:',e.message);return res.json({status:'COMPLETED',emailSent:false,orderId:req.params.id})}}return res.json({status:'COMPLETED',emailSent:true,orderId:req.params.id});}const result=await paypal('/v2/checkout/orders/'+encodeURIComponent(req.params.id)+'/capture','POST');const captures=result.purchase_units?.flatMap(u=>u.payments?.captures||[])||[];const valid=result.status==='COMPLETED'&&captures.some(c=>c.status==='COMPLETED'&&c.amount?.currency_code==='EUR'&&Math.round(Number(c.amount.value)*100)===o.cents);if(!valid)return res.status(409).json({error:'Paiement non confirmé'});o.status='COMPLETED';let emailSent=false;try {
-  sendOrderEmail(req.params.id).catch(e => {
-    console.error('EMAIL:', e.message);
-  });
-  emailSent = false;
-}}console.log('PAIEMENT CONFIRMÉ',req.params.id,o.items,o.cents);res.json({status:'COMPLETED',emailSent,orderId:req.params.id});}catch(e){console.error(e.message);res.status(502).json({error:'Capture non confirmée. Contactez EPC avant de réessayer.'});}});
+app.post('/api/orders/:id/capture', async (req, res) => {
+  try {
+    const o = orders.get(req.params.id);
+
+    if (!o) {
+      return res.status(404).json({ error: 'Commande inconnue' });
+    }
+
+    if (o.status === 'COMPLETED') {
+      return res.json({
+        status: 'COMPLETED',
+        emailSent: o.emailed,
+        orderId: req.params.id
+      });
+    }
+
+    const result = await paypal(
+      '/v2/checkout/orders/' + encodeURIComponent(req.params.id) + '/capture',
+      'POST'
+    );
+
+    const captures = result.purchase_units?.flatMap(
+      u => u.payments?.captures || []
+    ) || [];
+
+    const valid =
+      result.status === 'COMPLETED' &&
+      captures.some(c =>
+        c.status === 'COMPLETED' &&
+        c.amount?.currency_code === 'EUR' &&
+        Math.round(Number(c.amount.value) * 100) === o.cents
+      );
+
+    if (!valid) {
+      return res.status(409).json({
+        error: 'Paiement non confirmé'
+      });
+    }
+
+    o.status = 'COMPLETED';
+
+    // Réponse immédiate au client, sans attendre le serveur e-mail
+    res.json({
+      status: 'COMPLETED',
+      emailSent: false,
+      orderId: req.params.id
+    });
+
+    sendOrderEmail(req.params.id).catch(e => {
+      console.error('EMAIL:', e.message);
+    });
+
+    console.log('PAIEMENT CONFIRMÉ', req.params.id, o.items, o.cents);
+
+  } catch (e) {
+    console.error('CAPTURE:', e.message);
+
+    if (!res.headersSent) {
+      res.status(502).json({
+        error: 'Capture non confirmée. Contactez EPC avant de réessayer.'
+      });
+    }
+  }
+});
 app.listen(process.env.PORT||3000,()=>console.log('EPC prêt : http://localhost:'+(process.env.PORT||3000)+' ('+mode+')'));
