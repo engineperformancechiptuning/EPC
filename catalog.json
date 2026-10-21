@@ -1,0 +1,176 @@
+[
+  {
+    "id": "0",
+    "name": "DPF Off",
+    "cents": 4999,
+    "category": "Émissions et post-traitement"
+  },
+  {
+    "id": "1",
+    "name": "GPF / OPF / PPF Off",
+    "cents": 5999,
+    "category": "Émissions et post-traitement"
+  },
+  {
+    "id": "2",
+    "name": "EGR Off",
+    "cents": 4999,
+    "category": "Émissions et post-traitement"
+  },
+  {
+    "id": "3",
+    "name": "AdBlue / SCR Off",
+    "cents": 7999,
+    "category": "Émissions et post-traitement"
+  },
+  {
+    "id": "4",
+    "name": "Lambda / O₂ / CAT",
+    "cents": 4999,
+    "category": "Émissions et post-traitement"
+  },
+  {
+    "id": "5",
+    "name": "EVAP Off",
+    "cents": 4999,
+    "category": "Émissions et post-traitement"
+  },
+  {
+    "id": "6",
+    "name": "SAP Off",
+    "cents": 3999,
+    "category": "Émissions et post-traitement"
+  },
+  {
+    "id": "7",
+    "name": "Clapet échappement Off",
+    "cents": 5999,
+    "category": "Émissions et post-traitement"
+  },
+  {
+    "id": "8",
+    "name": "ChipTuning / Remap",
+    "cents": 7999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "9",
+    "name": "Limiteur (Vmax)",
+    "cents": 3999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "10",
+    "name": "Revlimit / Popcorn",
+    "cents": 6999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "11",
+    "name": "Launch Control",
+    "cents": 6999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "12",
+    "name": "Désactivation Start-Stop",
+    "cents": 3999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "13",
+    "name": "Sport Display",
+    "cents": 3999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "14",
+    "name": "Surveillance couple Off",
+    "cents": 3999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "15",
+    "name": "Tuning DSG / boîte",
+    "cents": 6999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "16",
+    "name": "Coupure de cylindres Off",
+    "cents": 6999,
+    "category": "Performances et facilité de conduite"
+  },
+  {
+    "id": "17",
+    "name": "Swirl / volets admission",
+    "cents": 4999,
+    "category": "Admission, actionneurs et capteurs"
+  },
+  {
+    "id": "18",
+    "name": "TVA Off",
+    "cents": 4999,
+    "category": "Admission, actionneurs et capteurs"
+  },
+  {
+    "id": "19",
+    "name": "Capteur MAF Off",
+    "cents": 4999,
+    "category": "Admission, actionneurs et capteurs"
+  },
+  {
+    "id": "20",
+    "name": "Capteur de boost",
+    "cents": 6999,
+    "category": "Admission, actionneurs et capteurs"
+  },
+  {
+    "id": "21",
+    "name": "Calandre AGS Off",
+    "cents": 5999,
+    "category": "Admission, actionneurs et capteurs"
+  },
+  {
+    "id": "22",
+    "name": "Bruit démarrage à froid",
+    "cents": 4999,
+    "category": "Admission, actionneurs et capteurs"
+  },
+  {
+    "id": "23",
+    "name": "DTC Off",
+    "cents": 2999,
+    "category": "Sécurité, diagnostic et restauration"
+  },
+  {
+    "id": "24",
+    "name": "Correction du checksum",
+    "cents": 2999,
+    "category": "Sécurité, diagnostic et restauration"
+  },
+  {
+    "id": "25",
+    "name": "Hotstart Fix (diesel)",
+    "cents": 1999,
+    "category": "Sécurité, diagnostic et restauration"
+  },
+  {
+    "id": "26",
+    "name": "IMMO Off",
+    "cents": 4999,
+    "category": "Sécurité, diagnostic et restauration"
+  },
+  {
+    "id": "27",
+    "name": "VAG ECU/TCU Editing",
+    "cents": 3999,
+    "category": "Sécurité, diagnostic et restauration"
+  },
+  {
+    "id": "28",
+    "name": "Clonage ECU & TCU VAG",
+    "cents": 6999,
+    "category": "Sécurité, diagnostic et restauration"
+  }
+]
