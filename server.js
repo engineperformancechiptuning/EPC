@@ -54,5 +54,5 @@ app.post('/api/orders/:id/capture',async(req,res)=>{try{const o=orders.get(req.p
     console.error('EMAIL:', e.message);
   });
   emailSent = false;
-}console.log('PAIEMENT CONFIRMÉ',req.params.id,o.items,o.cents);res.json({status:'COMPLETED',emailSent,orderId:req.params.id});}catch(e){console.error(e.message);res.status(502).json({error:'Capture non confirmée. Contactez EPC avant de réessayer.'});}});
+}}console.log('PAIEMENT CONFIRMÉ',req.params.id,o.items,o.cents);res.json({status:'COMPLETED',emailSent,orderId:req.params.id});}catch(e){console.error(e.message);res.status(502).json({error:'Capture non confirmée. Contactez EPC avant de réessayer.'});}});
 app.listen(process.env.PORT||3000,()=>console.log('EPC prêt : http://localhost:'+(process.env.PORT||3000)+' ('+mode+')'));
